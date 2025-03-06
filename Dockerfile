@@ -1,21 +1,20 @@
 FROM node:20.18.2-alpine
 
-WORKDIR /usr/src/app
+WORKDIR /app
 
 COPY package.json ./
-COPY dist/ ./src
 COPY prisma/ ./prisma
-COPY src/apiDocs/ ./src/apiDocs
 
 RUN apk add --no-cache openssl libssl3 
-
-RUN mkdir media
-RUN mkdir media/output
 
 RUN npm install --only=production
 RUN npm install -g prisma
 RUN prisma generate
 
-EXPOSE 8000 8001
+COPY . .
 
-CMD ["node", "src/Index.js"]
+RUN npm run build
+
+EXPOSE 8000
+
+CMD ["node", "dist/Index.js"]
