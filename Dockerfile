@@ -13,7 +13,7 @@ RUN prisma generate
 
 COPY . .
 
-RUN npm run build
+RUN npm run build --verbose
 
 EXPOSE 8000
 
