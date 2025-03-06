@@ -7,7 +7,7 @@ COPY prisma/ ./prisma
 
 RUN apk add --no-cache openssl libssl3 
 
-RUN npm install --only=production
+RUN npm install
 RUN npm install -g prisma
 RUN prisma generate
 
