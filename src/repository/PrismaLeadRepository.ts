@@ -1,4 +1,5 @@
 import prisma from "../config/DatabaseSource";
+import LoggerConfig from "../config/LoggerConfig";
 import Handle from "../utils/decorators/DBErrorHandlingDecorator";
 import { LeadStatus } from "../utils/types/common";
 import { LeadData } from "../utils/types/types";
@@ -16,6 +17,7 @@ class PrismaLeadRepository implements ILeadRepository {
 
   @Handle
   saveNewLead(newLeadPayload: LeadData): Promise<LeadData> {
+    LoggerConfig.getLogger().info(`Adding new Lead data`);
     return prisma.lead.create({
       data: {
         name: newLeadPayload.name,
@@ -27,7 +29,8 @@ class PrismaLeadRepository implements ILeadRepository {
 
   @Handle
   getLeads(): Promise<Array<LeadData>> {
-    throw prisma.lead.findMany();
+    LoggerConfig.getLogger().info(`Fetching all leads from database`);
+    return prisma.lead.findMany();
   }
 }
 
