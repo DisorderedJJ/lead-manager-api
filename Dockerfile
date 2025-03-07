@@ -16,6 +16,8 @@ COPY src/ ./src
 
 RUN npm run build
 
+RUN ls -l
+
 EXPOSE 8000
 
 CMD ["node", "dist/Index.js"]
